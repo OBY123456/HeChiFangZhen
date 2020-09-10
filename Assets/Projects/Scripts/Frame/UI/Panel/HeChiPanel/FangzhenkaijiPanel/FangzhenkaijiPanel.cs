@@ -23,7 +23,7 @@ public class FangzhenkaijiPanel : BasePanel
         checkEndPanel = FindTool.FindChildComponent<CheckEndPanel>(transform, "CheckEndPanel");
 
         TipsText = FindTool.FindChildComponent<Text>(transform, "tips/Content/Text_Medium");
-        TiltleText = FindTool.FindChildComponent<Text>(transform, "tips/Content/Text_Regular");
+        TiltleText = FindTool.FindChildComponent<Text>(transform, "tips/Text_Regular");
     }
 
     public override void InitEvent()

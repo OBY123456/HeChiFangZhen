@@ -17,7 +17,7 @@ public class SheBeiPanel : BasePanel
         base.InitFind();
         buttons = FindTool.FindChildNode(transform, "ItemGroup/ItemButtons/Viewport/Content").GetComponentsInChildren<Button>();
         TipsText = FindTool.FindChildComponent<Text>(transform, "tips/Content/Text_Medium");
-        TiltleText = FindTool.FindChildComponent<Text>(transform, "tips/Content/Text_Regular");
+        TiltleText = FindTool.FindChildComponent<Text>(transform, "tips/Text_Regular");
         checkEndPanel = FindTool.FindChildComponent<CheckEndPanel>(transform, "CheckEndPanel");
     }
 

@@ -127,7 +127,7 @@ public class ManYouPanel : BasePanel
     {
         button.onClick.AddListener(() => {
             SwitchButtonOpen();
-            if(num == 1 && num == 2 && num == 3 && num== 4 && num==5)
+            if(num == 1 || num == 2 || num == 3 || num== 4 || num==5)
             {
                 Map.sprite = MapBg[2];
             }
@@ -135,7 +135,7 @@ public class ManYouPanel : BasePanel
             {
                 Map.sprite = MapBg[1];
             }
-            else if(num == 7 && num == 8)
+            else if(num == 7 || num == 8)
             {
                 Map.sprite = MapBg[0];
             }

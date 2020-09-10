@@ -13,6 +13,9 @@ public class CheckPanel : BasePanel
     public Button[] Shebeicaozuo;
 
     public CanvasGroup CJZZ, SBCZ;
+    public Image Arrow_CJZZ, Arrow_SBCZ;
+
+    public Sprite[] Arrow;
 
     public override void InitFind()
     {
@@ -23,6 +26,9 @@ public class CheckPanel : BasePanel
 
         CJZZ = FindTool.FindChildComponent<CanvasGroup>(transform, "SecondLevelButtons");
         SBCZ = FindTool.FindChildComponent<CanvasGroup>(transform, "SecondLevelButtons (1)");
+
+        Arrow_CJZZ = FindTool.FindChildComponent<Image>(transform, "Buttons/chaijizuzhuang/Image");
+        Arrow_SBCZ = FindTool.FindChildComponent<Image>(transform, "Buttons/shebeicaozuo/Image");
     }
 
     public override void InitEvent()
@@ -35,13 +41,19 @@ public class CheckPanel : BasePanel
         });
 
         buttons[1].onClick.AddListener(() => {
-            CJZZ.DOFade(1, 0.5f);
-            CJZZ.blocksRaycasts = true;
+            CJZZ.Open();
+            Arrow_CJZZ.sprite = Arrow[1];
+
+            SBCZ.Hide();
+            Arrow_SBCZ.sprite = Arrow[0];
         });
 
         buttons[2].onClick.AddListener(() => {
-            SBCZ.DOFade(1, 0.5f);
-            SBCZ.blocksRaycasts = true;
+            SBCZ.Open();
+            Arrow_SBCZ.sprite = Arrow[1];
+
+            CJZZ.Hide();
+            Arrow_CJZZ.sprite = Arrow[0];
         });
 
         Chaijizuzhuang[0].onClick.AddListener(() => {
@@ -78,10 +90,10 @@ public class CheckPanel : BasePanel
 
     private void Reset()
     {
-        SBCZ.alpha = 0;
-        SBCZ.blocksRaycasts = false;
+        SBCZ.Hide();
+        Arrow_SBCZ.sprite = Arrow[0];
 
-        CJZZ.alpha = 0;
-        CJZZ.blocksRaycasts = false;
+        CJZZ.Hide();
+        Arrow_CJZZ.sprite = Arrow[0];
     }
 }

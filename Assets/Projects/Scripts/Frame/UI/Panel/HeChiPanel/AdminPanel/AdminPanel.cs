@@ -53,7 +53,7 @@ public class AdminPanel : BasePanel
         SwitchButton = FindTool.FindChildNode(transform, "SwitchButtons").GetComponentsInChildren<Button>();
         NewButton = FindTool.FindChildComponent<Button>(transform, "NewButton");
         Tips = FindTool.FindChildNode(transform, "tips").GetComponentsInChildren<CanvasGroup>();
-        bg = FindTool.FindChildComponent<Image>(transform, "bg");
+        bg = FindTool.FindChildComponent<Image>(transform, "bg2");
 
         TeacherScroll = FindTool.FindChildComponent<ScrollRect>(transform, "Scroll View Template Teacher");
         StudentScroll = FindTool.FindChildComponent<ScrollRect>(transform, "Scroll View Template Student");
@@ -120,7 +120,11 @@ public class AdminPanel : BasePanel
         });
 
         Change_yes_Button.onClick.AddListener(() => {
-            if (Change_Number.text != "" && Change_Class.text != "" && Change_Academy.text != "" && Change_Name.text != "")
+            if (Change_Number.text == "" || Change_Class.text == "" || Change_Academy.text == "" || Change_Name.text == "")
+            {
+
+            }
+            else
             {
                 ChangeListValue();
                 TipsCanvase_Hide();
@@ -132,10 +136,14 @@ public class AdminPanel : BasePanel
         });
 
         New_yes_Button.onClick.AddListener(() => {
-            if(New_Number.text!="" && New_Class.text!=""&& New_Academy.text!="" && New_Name.text!="")
+            if(New_Number.text =="" || New_Class.text=="" || New_Academy.text=="" || New_Name.text=="")
+            {
+
+            }
+            else
             {
                 GameObject obj;
-                if(tableType == TableType.Teacher)
+                if (tableType == TableType.Teacher)
                 {
                     obj = Instantiate(AdminPrefab, TeacherScroll.content);
                 }
@@ -163,9 +171,10 @@ public class AdminPanel : BasePanel
                 }
 
                 obj = null;
+                TipsCanvase_Hide();
             }
 
-            TipsCanvase_Hide();
+            
         });
 
         New_no_Button.onClick.AddListener(() => {
@@ -358,11 +367,9 @@ public class AdminPanel : BasePanel
         {
             case TableType.Student:
                 Index = StudentList.IndexOf(obj);
-                Debug.Log(Index);
                 break;
             case TableType.Teacher:
                 Index = TeacherList.IndexOf(obj);
-                Debug.Log(Index);
                 break;
             default:
                 break;
