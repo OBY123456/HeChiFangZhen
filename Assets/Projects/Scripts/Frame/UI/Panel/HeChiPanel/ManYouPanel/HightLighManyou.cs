@@ -12,7 +12,7 @@ public class HightLighManyou : HighlightableObject
     {
         if(TrainingPanel.trainType == TrainingEnum.TrainType.电站认知)
         {
-            ConstantOn(Color.red);
+            ConstantOn(Color.blue);
         }
        
     }

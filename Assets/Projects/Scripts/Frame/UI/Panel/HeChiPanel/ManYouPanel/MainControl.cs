@@ -7,6 +7,8 @@ public class MainControl : MonoBehaviour
     public static MainControl Instance;
 
     public Transform ShiwaiScene, ShineiScene,Shebeizhuangxie;
+    public ShineiScene shineiScene;
+    public Shebeizhuangxie shebeizhuangxie;
 
     private void Awake()
     {

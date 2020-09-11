@@ -17,7 +17,7 @@ public class GuanjiPanel : BasePanel
     public override void InitFind()
     {
         base.InitFind();
-        StateImage = FindTool.FindChildNode(transform, "StateImage").GetComponentsInChildren<Image>();
+        //StateImage = FindTool.FindChildNode(transform, "StateImage").GetComponentsInChildren<Image>();
         StopButton = FindTool.FindChildComponent<Button>(transform, "StopButton");
         LeftButton = FindTool.FindChildComponent<Button>(transform, "LeftButton");
         RightButton = FindTool.FindChildComponent<Button>(transform, "RightButton");

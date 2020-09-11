@@ -8,7 +8,7 @@ namespace MTFrame
     /// <summary>
     /// UI面板基类
     /// </summary>
-    //[ExecuteInEditMode]
+    [ExecuteInEditMode]
     public abstract class BasePanel : UIBehavior, ISerializeButton
     {
         public List<string> SerializeButtonName
