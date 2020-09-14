@@ -34,8 +34,6 @@ public class AdminPanel : BasePanel
     //删除框UI
     public Button Delete_yes_Button, Delete_no_Button;
 
-    public GameObject AdminPrefab;
-
     private TableType tableType;
     private List<GameObject> TeacherList = new List<GameObject>();
     private List<GameObject> StudentList = new List<GameObject>();
@@ -145,11 +143,15 @@ public class AdminPanel : BasePanel
                 GameObject obj;
                 if (tableType == TableType.Teacher)
                 {
-                    obj = Instantiate(AdminPrefab, TeacherScroll.content);
+                    obj = AdminPool.Instance.CreatObject(TeacherList);
+                    obj.transform.SetParent(TeacherScroll.content);
+                    obj.transform.SetAsLastSibling();
                 }
                 else
                 {
-                    obj = Instantiate(AdminPrefab, StudentScroll.content);
+                    obj = AdminPool.Instance.CreatObject(StudentList);
+                    obj.transform.SetParent(StudentScroll.content);
+                    obj.transform.SetAsLastSibling();
                 }
 
                 obj.GetComponent<AdminStdTable>().Number.text = New_Number.text;
@@ -207,16 +209,16 @@ public class AdminPanel : BasePanel
     {
         for (int i = 0; i < 8; i++)
         {
-            GameObject obj = Instantiate(AdminPrefab, TeacherScroll.content);
+            GameObject obj = obj = AdminPool.Instance.CreatObject(TeacherList);
             obj.GetComponent<AdminStdTable>().adminPanel = this;
-            TeacherList.Add(obj);
+            obj.transform.SetParent(TeacherScroll.content);
         }
 
         for (int i = 0; i < 10; i++)
         {
-            GameObject obj = Instantiate(AdminPrefab, StudentScroll.content);
+            GameObject obj = obj = AdminPool.Instance.CreatObject(StudentList);
             obj.GetComponent<AdminStdTable>().adminPanel = this;
-            StudentList.Add(obj);
+            obj.transform.SetParent(StudentScroll.content);
         }
     }
 
@@ -234,26 +236,22 @@ public class AdminPanel : BasePanel
 
     private void TeacherCanvas_Open()
     {
-        TeacherCanvas.alpha = 1;
-        TeacherCanvas.blocksRaycasts = true;
+        TeacherCanvas.Open();
     }
 
     private void TeacherCanvas_Hide()
     {
-        TeacherCanvas.alpha = 0;
-        TeacherCanvas.blocksRaycasts = false;
+        TeacherCanvas.Hide();
     }
 
     private void StudentCanvas_Open()
     {
-        StudentCanvas.alpha = 1;
-        StudentCanvas.blocksRaycasts = true;
+        StudentCanvas.Open();
     }
 
     private void StudentCanvas_Hide()
     {
-        StudentCanvas.alpha = 0;
-        StudentCanvas.blocksRaycasts = false;
+        StudentCanvas.Hide();
     }
 
     private void TipsCanvase_Open(int num)
@@ -262,12 +260,10 @@ public class AdminPanel : BasePanel
         {
             for (int i = 0; i < Tips.Length; i++)
             {
-                Tips[i].alpha = 0;
-                Tips[i].blocksRaycasts = false;
+                Tips[i].Hide();
             }
 
-            Tips[num].alpha = 1;
-            Tips[num].blocksRaycasts = true;
+            Tips[num].Open();
         }
     }
 
@@ -275,8 +271,7 @@ public class AdminPanel : BasePanel
     {
         for (int i = 0; i < Tips.Length; i++)
         {
-            Tips[i].alpha = 0;
-            Tips[i].blocksRaycasts = false;
+            Tips[i].Hide();
         }
         Index = -1;
     }
@@ -302,6 +297,15 @@ public class AdminPanel : BasePanel
 
         Index = -1;
 
+        while(TeacherList.Count > 0)
+        {
+            AdminPool.Instance.DestroyObject(TeacherList[0], TeacherList);
+        }
+
+        while (TeacherList.Count > 0)
+        {
+            AdminPool.Instance.DestroyObject(StudentList[0], StudentList);
+        }
     }
 
     /// <summary>
@@ -338,12 +342,10 @@ public class AdminPanel : BasePanel
         switch (tableType)
         {
             case TableType.Student:
-                Destroy(StudentList[Index]);
-                StudentList.RemoveAt(Index);
+                AdminPool.Instance.DestroyObject(StudentList[Index], StudentList);
                 break;
             case TableType.Teacher:
-                Destroy(TeacherList[Index]);
-                TeacherList.RemoveAt(Index);
+                AdminPool.Instance.DestroyObject(TeacherList[Index], TeacherList);
                 break;
             default:
                 break;

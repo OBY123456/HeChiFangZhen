@@ -15,13 +15,16 @@ public class WaitPanel : BasePanel
 
     public Button CloseButton;
     public Text TipsText;
-    public CanvasGroup CloseCanvasGroup;
+    public CanvasGroup CloseCanvasGroup, ChangePasswordGroup;
 
     public Sprite[] ButtonBg;
 
     public static AccountType accountType;
 
     public int Account = 1234567899;
+
+    public Button YesButton, NoButton,forgetButton;
+    public InputField Change_Id, Change_Password;
 
     protected override void Start()
     {
@@ -51,6 +54,12 @@ public class WaitPanel : BasePanel
         TipsText = FindTool.FindChildComponent<Text>(transform, "Tips/Text_Medium_content");
         CloseButton = FindTool.FindChildComponent<Button>(transform, "Tips/Button_Medium_Close");
         CloseCanvasGroup = FindTool.FindChildComponent<CanvasGroup>(transform, "Tips");
+        ChangePasswordGroup = FindTool.FindChildComponent<CanvasGroup>(transform, "loginGroup/ChangePasswordGroup");
+        YesButton = FindTool.FindChildComponent<Button>(transform, "loginGroup/ChangePasswordGroup/Yes");
+        NoButton = FindTool.FindChildComponent<Button>(transform, "loginGroup/ChangePasswordGroup/NO");
+        Change_Id = FindTool.FindChildComponent<InputField>(transform, "loginGroup/ChangePasswordGroup/Account");
+        Change_Password = FindTool.FindChildComponent<InputField>(transform, "loginGroup/ChangePasswordGroup/NewPassword");
+        forgetButton = FindTool.FindChildComponent<Button>(transform, "loginGroup/ForgetPassword");
     }
 
     public override void InitEvent()
@@ -105,6 +114,23 @@ public class WaitPanel : BasePanel
         CloseButton.onClick.AddListener(() => {
             CanvasGroup_Close();
         });
+
+        YesButton.onClick.AddListener(() => {
+            if(Change_Id.text != "" && Change_Password.text != "")
+            {
+                ChangePasswordGroup.Hide();
+            }
+        });
+
+        NoButton.onClick.AddListener(() => {
+                ChangePasswordGroup.Hide();
+        });
+
+        forgetButton.onClick.AddListener(() => {
+            Change_Id.text = "";
+            Change_Password.text = "";
+            ChangePasswordGroup.Open();
+        });
     }
 
     private void Login_Tourists()
@@ -132,7 +158,7 @@ public class WaitPanel : BasePanel
         if (Login_Id.text == Account.ToString() && Login_Password.text == "qq123456")
         {
             PanelState.SwitchPanel(PanelName.DirectoryPanel);
-            LoginPanel.Instance.SetName("王小明");
+            LoginPanel.Instance.SetName("教师");
         }
         else
         {
@@ -146,7 +172,7 @@ public class WaitPanel : BasePanel
         if (Login_Id.text == Account.ToString() && Login_Password.text == "qq123456")
         {
             PanelState.SwitchPanel(PanelName.DirectoryPanel);
-            LoginPanel.Instance.SetName("王小明");
+            LoginPanel.Instance.SetName("Admin");
         }
         else
         {

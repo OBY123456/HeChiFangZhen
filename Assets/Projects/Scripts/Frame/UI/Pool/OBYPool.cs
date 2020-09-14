@@ -84,5 +84,10 @@ namespace OBYPool
             Pool_Idle.Clear();
             //Pool_Use.Clear();
         }
+
+        private void OnDestroy()
+        {
+            Clear();
+        }
     }
 }

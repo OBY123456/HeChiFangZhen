@@ -11,8 +11,10 @@ public class FangzhenkaijiPanel : BasePanel
     public CheckEndPanel endPanel;
     public Color Red, Green;
     public CheckEndPanel checkEndPanel;
+    public TipsGroup tipsGroup;
 
-    public Text TiltleText, TipsText;
+    private string KaijiMsg = "设备开机操作学习现在开始\n第一步：请点击复位PLC\n第二步：请点击1GS开机令\n第三步：请点击空转到空载\n第四步：请点击1GS并网\n第五步：请点击1GS切同期\n第六步：请点击11GS起励\n第七步：请点击11GS并网\n第八步：请点击发11GS切同期";
+    private string GuanjiMsg = "设备关机操作学习现在开始\n第一步：请点击停机\n第二步：请点击减负荷1\n第三步：请点击减负荷2\n第四步：请点击风闸开关";
 
     public override void InitFind()
     {
@@ -22,8 +24,7 @@ public class FangzhenkaijiPanel : BasePanel
         endPanel = FindTool.FindChildComponent<CheckEndPanel>(transform, "CheckEndPanel");
         checkEndPanel = FindTool.FindChildComponent<CheckEndPanel>(transform, "CheckEndPanel");
 
-        TipsText = FindTool.FindChildComponent<Text>(transform, "tips/Content/Text_Medium");
-        TiltleText = FindTool.FindChildComponent<Text>(transform, "tips/Text_Regular");
+        tipsGroup = FindTool.FindChildComponent<TipsGroup>(transform, "TipsGroup");
     }
 
     public override void InitEvent()
@@ -37,30 +38,42 @@ public class FangzhenkaijiPanel : BasePanel
     public override void Open()
     {
         base.Open();
-        switch (TrainingPanel.trainType)
-        {
-            case TrainingEnum.TrainType.仿真开机:
-                guanjiPanel.Hide();
-                kaijiPanel.Open();
-                SetText("仿真开机", TrainingEnum.TrainType.仿真开机.ToString());
-                break;
-            case TrainingEnum.TrainType.仿真关机:
-                kaijiPanel.Hide();
-                guanjiPanel.Open();
-                SetText("仿真关机", TrainingEnum.TrainType.仿真关机.ToString());
-                break;
-            default:
-                break;
-        }
-
+        tipsGroup.Open();
         if (DirectoryPanel.functionType == DirectoryEnum.FunctionType.Check)
         {
             endPanel.Open();
-            SetText("考核内容", TrainingEnum.TrainType.仿真关机.ToString());
+            switch (TrainingPanel.trainType)
+            {
+                case TrainingEnum.TrainType.仿真开机:
+                    guanjiPanel.Hide();
+                    kaijiPanel.Open();
+                    break;
+                case TrainingEnum.TrainType.仿真关机:
+                    kaijiPanel.Hide();
+                    guanjiPanel.Open();
+                    break;
+                default:
+                    break;
+            }
         }
         else
         {
             endPanel.Hide();
+            switch (TrainingPanel.trainType)
+            {
+                case TrainingEnum.TrainType.仿真开机:
+                    guanjiPanel.Hide();
+                    kaijiPanel.Open();
+                    tipsGroup.SetText("仿真开机", KaijiMsg);
+                    break;
+                case TrainingEnum.TrainType.仿真关机:
+                    kaijiPanel.Hide();
+                    guanjiPanel.Open();
+                    tipsGroup.SetText("仿真关机", GuanjiMsg);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -70,11 +83,6 @@ public class FangzhenkaijiPanel : BasePanel
         kaijiPanel.Hide();
         guanjiPanel.Hide();
         endPanel.Hide();
-    }
-
-    private void SetText(string Tiltle, string Content)
-    {
-        TiltleText.text = Tiltle;
-        TipsText.text = Content;
+        tipsGroup.Hide();
     }
 }

@@ -11,7 +11,7 @@ public class CheckEndPanel : BasePanel
     public CanvasGroup ScoreUI,TipsCanvas;
 
     //考核Data
-    public int ScoreData;
+    public float ScoreData;
     public int TimeData;
     [HideInInspector]
     public bool IsStart;
@@ -83,10 +83,15 @@ public class CheckEndPanel : BasePanel
     /// 成绩+
     /// </summary>
     /// <param name="num"></param>
-    public void ScoreAdd(int num)
+    public void ScoreAdd(float num)
     {
         ScoreData += num;
         ScoreText.text = ScoreData.ToString();
+        if(ScoreData >= 100)
+        {
+            ScoreText.text = "100";
+            TipsCanvas_Open();
+        }
     }
 
     private IEnumerator Countdown()

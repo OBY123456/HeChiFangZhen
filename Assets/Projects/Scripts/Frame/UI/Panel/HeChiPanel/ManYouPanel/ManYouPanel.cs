@@ -14,17 +14,20 @@ public class ManYouPanel : BasePanel
     [HideInInspector]
     public CanvasGroup Caozuofangshi, transfer, Minimap,ButtonsCanvas, DropdownCanvas;
     //public Button CIS, Chuxianzhuangzhi, Fadianji, Lichixitong,Jizutiaosuju, Bianyaqi, Shuilunji;
-    public Text TiltleText, ContentText;
+
     public Button SwitchButton;
     public CanvasGroup SwitchButtonCanvasGroup;
     public Image Map;
     public Button[] dropdown;
     public DeviceDisplayPanel deviceDisplayPanel;
     public Button CloseButton;
-    public ScrollRect scrollRect;
     public CheckEndPanel checkPanel;
     public Button[] TransportButtons;
     public Sprite[] MapBg;
+    public TipsGroup tipsGroup;
+
+    public ScrollRect scrollRect;
+
     public DevicesType CurrentDevices;
     private string[,] deviceMassages = {
         {
@@ -78,12 +81,13 @@ public class ManYouPanel : BasePanel
 
     private string[] CheckMsgs = {
 
-        "考核开始\n第一题：请找出并选中场景中的发电机，总分20分。",
-        "考核开始\n<color=red>第一题：请找出并选中场景中的发电机，总分20分。</color>\n第二题：请找出并选中场景中的机组调速柜，总分20分。",
-        "考核开始\n<color=red>第一题：请找出并选中场景中的发电机，总分20分。\n第二题：请找出并选中场景中的机组调速柜，总分20分。</color>\n第三题：请找出并选中场景中的励磁装置，总分20分。",
-        "考核开始\n<color=red>第一题：请找出并选中场景中的发电机，总分20分。\n第二题：请找出并选中场景中的机组调速柜，总分20分。\n第三题：请找出并选中场景中的励磁装置，总分20分。</color>\n第四题：请找出并选中场景中的油压装置，总分20分。",
-        "考核开始\n<color=red>第一题：请找出并选中场景中的发电机，总分20分。\n第二题：请找出并选中场景中的机组调速柜，总分20分。\n第三题：请找出并选中场景中的励磁装置，总分20分。\n第四题：请找出并选中场景中的油压装置，总分20分。</color>\n第五题：请找出并选中场景中的出线装置，总分20分。",
-        "考核开始\n<color=red>第一题：请找出并选中场景中的发电机，总分20分。\n第二题：请找出并选中场景中的机组调速柜，总分20分。\n第三题：请找出并选中场景中的励磁装置，总分20分。\n第四题：请找出并选中场景中的油压装置，总分20分。\n第五题：请找出并选中场景中的出线装置，总分20分。</color>",
+        "考核开始",
+        "第一题：请找出并选中场景中的发电机，总分20分。",
+        "第二题：请找出并选中场景中的机组调速柜，总分20分。",
+        "第三题：请找出并选中场景中的励磁装置，总分20分。",
+        "第四题：请找出并选中场景中的油压装置，总分20分。",
+        "第五题：请找出并选中场景中的出线装置，总分20分。",
+        "第五题：请找出并选中场景中的出线装置，总分20分。",
     };
 
     private bool IsCheck1, IsCheck2, IsCheck3, IsCheck4;
@@ -92,14 +96,11 @@ public class ManYouPanel : BasePanel
     {
         base.InitFind();
         MenuButtons = FindTool.FindChildNode(transform, "MenuButtons").GetComponentsInChildren<Button>();
-        Caozuofangshi = FindTool.FindChildComponent<CanvasGroup>(transform, "caozuofangfa");
+        Caozuofangshi = FindTool.FindChildComponent<CanvasGroup>(transform, "TipsGroup");
         transfer = FindTool.FindChildComponent<CanvasGroup>(transform, "TransportGroup");
         Minimap = FindTool.FindChildComponent<CanvasGroup>(transform, "MiniMap");
 
         TransportButtons = FindTool.FindChildNode(transform, "TransportGroup/Scroll View/Viewport/Content").GetComponentsInChildren<Button>();
-
-        TiltleText = FindTool.FindChildComponent<Text>(transform, "caozuofangfa/Tiltle");
-        ContentText = FindTool.FindChildComponent<Text>(transform, "caozuofangfa/Content/Text_Medium");
 
         SwitchButton = FindTool.FindChildComponent<Button>(transform, "SwitchButton");
         SwitchButtonCanvasGroup = SwitchButton.gameObject.GetComponent<CanvasGroup>();
@@ -112,11 +113,13 @@ public class ManYouPanel : BasePanel
 
         CloseButton = FindTool.FindChildComponent<Button>(transform, "MassageUI/menu/CloseButton");
 
-        scrollRect = FindTool.FindChildComponent<ScrollRect>(transform, "caozuofangfa/Content");
-
         checkPanel = FindTool.FindChildComponent<CheckEndPanel>(transform, "CheckEndPanel");
 
         dropdown = FindTool.FindChildNode(transform, "MassageUI/menu/ButtonGroup").GetComponentsInChildren<Button>();
+
+        tipsGroup = FindTool.FindChildComponent<TipsGroup>(transform, "TipsGroup");
+
+        scrollRect = FindTool.FindChildComponent<ScrollRect>(transform, "TransportGroup/Scroll View");
     }
 
     public override void InitEvent()
@@ -190,6 +193,10 @@ public class ManYouPanel : BasePanel
             {
                 Map.sprite = MapBg[1];
             }
+            else if(num == 2)
+            {
+                tipsGroup.SetText("操作方法", "W S A D控制行走 按住鼠标左键控制方向");
+            }
             else if(num == 7 || num == 8)
             {
                 Map.sprite = MapBg[0];
@@ -213,18 +220,18 @@ public class ManYouPanel : BasePanel
                     deviceDisplayPanel.Open();
                     break;
                 case 1:
-                    SetText("设备台账", deviceMassages[temp,0]);
+                    tipsGroup.SetText("设备台账", deviceMassages[temp,0]);
                     break;
                 case 2:
-                    SetText("技术参数", deviceMassages[temp, 1]);
+                    tipsGroup.SetText("技术参数", deviceMassages[temp, 1]);
                     break;
                 case 3:
                     DropdownCanvas.Hide();
-                    SetText("内部组件", CurrentDevices.ToString());
+                    tipsGroup.SetText("内部组件", CurrentDevices.ToString());
                     MainControl.Instance.shineiScene.SceneOpen(ShineiSceneEnum.SceneType.Scene2, temp);
                     break;
                 case 4:
-                    SetText("设备功能", deviceMassages[temp, 2]);
+                    tipsGroup.SetText("设备功能", deviceMassages[temp, 2]);
                     break;
                 default:
                     break;
@@ -236,20 +243,23 @@ public class ManYouPanel : BasePanel
     {
         base.Open();
 
-        
+        tipsGroup.Open();
+        scrollRect.verticalNormalizedPosition = 1;
 
         if (DirectoryPanel.functionType == FunctionType.Check)
         {
             Check_Hide();
             SwitchButtonCanvasGroup.Hide();
             MainControl.Instance.ShineiScene.gameObject.SetActive(true);
-            SetText("考核内容", CheckMsgs[0]);
+            MainControl.Instance.shineiScene.SceneOpen(ShineiSceneEnum.SceneType.Scene1, 0);
+            tipsGroup.SetCheckText("考核内容", CheckMsgs[0]);
+            tipsGroup.SetCheckText("考核内容", CheckMsgs[1]);
             checkPanel.Open();
             EventManager.AddListener(GenericEventEnumType.Message, DirectoryPanel.functionType.ToString(), Callback2);
         }
         else
         {
-            SetText("操作方法", "W S A D控制行走 鼠标控制方向");
+            tipsGroup.SetText("操作方法", "W S A D控制行走 按住鼠标左键控制方向");
             Check_Open();
             switch (TrainingPanel.trainType)
             {
@@ -279,7 +289,7 @@ public class ManYouPanel : BasePanel
                     {
                         IsCheck1 = true;
                         checkPanel.ScoreAdd(20);
-                        SetText("考核内容", CheckMsgs[1]);
+                        tipsGroup.SetCheckText("考核内容", CheckMsgs[2]);
                     }
                     break;
                 case DevicesType.机组调速柜:
@@ -287,7 +297,7 @@ public class ManYouPanel : BasePanel
                     {
                         IsCheck2 = true;
                         checkPanel.ScoreAdd(20);
-                        SetText("考核内容", CheckMsgs[2]);
+                        tipsGroup.SetCheckText("考核内容", CheckMsgs[3]);
                     }
                     break;
                 case DevicesType.励磁系统:
@@ -295,7 +305,7 @@ public class ManYouPanel : BasePanel
                     {
                         IsCheck3 = true;
                         checkPanel.ScoreAdd(20);
-                        SetText("考核内容", CheckMsgs[3]);
+                        tipsGroup.SetCheckText("考核内容", CheckMsgs[4]);
                     }
                     break;
                 case DevicesType.油压装置:
@@ -303,14 +313,14 @@ public class ManYouPanel : BasePanel
                     {
                         IsCheck4 = true;
                         checkPanel.ScoreAdd(20);
-                        SetText("考核内容", CheckMsgs[4]);
+                        tipsGroup.SetCheckText("考核内容", CheckMsgs[5]);
                     }
                     break;
                 case DevicesType.出线装置:
                     if (IsCheck4)
                     {
                         checkPanel.ScoreAdd(20);
-                        SetText("考核内容", CheckMsgs[5]);
+                        tipsGroup.SetTextColor(tipsGroup.TextGroup.Count - 1);
                     }
                     break;
                 default:
@@ -350,8 +360,8 @@ public class ManYouPanel : BasePanel
 
         deviceDisplayPanel.Hide();
         DropdownCanvas.Hide();
-
-        if(checkPanel.IsOpen)
+        tipsGroup.Hide();
+        if (checkPanel.IsOpen)
         {
             checkPanel.Hide();
         }
@@ -360,6 +370,7 @@ public class ManYouPanel : BasePanel
 
         MainControl.Instance.ShineiScene.gameObject.SetActive(false);
         MainControl.Instance.ShiwaiScene.gameObject.SetActive(false);
+        MainControl.Instance.shineiScene.SceneHide();
         Main.Instance.MainCamera.enabled = true;
 
         EventManager.RemoveListener(MTFrame.MTEvent.GenericEventEnumType.Message, TrainingEnum.TrainType.电站认知.ToString(), Callback);
@@ -372,6 +383,7 @@ public class ManYouPanel : BasePanel
         Map.sprite = MapBg[2];
         MainControl.Instance.ShiwaiScene.gameObject.SetActive(true);
         MainControl.Instance.ShineiScene.gameObject.SetActive(false);
+        MainControl.Instance.shineiScene.SceneHide();
     }
 
     private void Shineimanyou()
@@ -381,6 +393,7 @@ public class ManYouPanel : BasePanel
         SwitchButtonCanvasGroup.Hide();
         MainControl.Instance.ShiwaiScene.gameObject.SetActive(false);
         MainControl.Instance.ShineiScene.gameObject.SetActive(true);
+        MainControl.Instance.shineiScene.SceneOpen(ShineiSceneEnum.SceneType.Scene1, 0);
     }
 
     private void SwitchButtonOpen()
@@ -423,11 +436,5 @@ public class ManYouPanel : BasePanel
         DropdownCanvas.Open();
 
         //dropdown.value = 0;
-    }
-
-    private void SetText(string Tiltle,string Content)
-    {
-        TiltleText.text = Tiltle;
-        ContentText.text = Content;
     }
 }

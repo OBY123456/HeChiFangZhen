@@ -1262,7 +1262,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4262881814910038031}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -1281,8 +1281,6 @@ MonoBehaviour:
   openTweenTime: 0.5
   hideTweenTime: 0.5
   IsOpen: 1
-  TeacherPrefab: {fileID: 5316493464670519361, guid: 275d58405da679d4e928aef3987059f3,
-    type: 3}
   scrollRect: {fileID: 8758355560064011682}
   ChooseClass: {fileID: 6793621636903853452}
   ChooseSubjects: {fileID: 9044068933439215671}
@@ -2165,8 +2163,6 @@ MonoBehaviour:
   openTweenTime: 0.5
   hideTweenTime: 0.5
   IsOpen: 1
-  StudentPrefab: {fileID: 5316493464670519361, guid: 275d58405da679d4e928aef3987059f3,
-    type: 3}
   scrollView: {fileID: 7611282654025930602}
 --- !u!1 &7439088482922324799
 GameObject:
@@ -2970,12 +2966,12 @@ PrefabInstance:
     - target: {fileID: 6454758418170973893, guid: a4ddc81a6e4c3ff42a823f3599b863f6,
         type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6454758418170973893, guid: a4ddc81a6e4c3ff42a823f3599b863f6,
         type: 3}
       propertyPath: m_Size
-      value: 0.28140703
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6029666662999229948, guid: a4ddc81a6e4c3ff42a823f3599b863f6,
         type: 3}
@@ -3185,32 +3181,6 @@ PrefabInstance:
       propertyPath: m_SelectionColor.a
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4591739702389017034, guid: c3fbc62b1db391d4daa095f2692de6a4,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 25f8da3df770b224180f25c7c9221b5f,
-        type: 3}
-    - target: {fileID: 4591739702389017034, guid: c3fbc62b1db391d4daa095f2692de6a4,
-        type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1913113606584003469, guid: c3fbc62b1db391d4daa095f2692de6a4,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1913113606584003469, guid: c3fbc62b1db391d4daa095f2692de6a4,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1913113606584003469, guid: c3fbc62b1db391d4daa095f2692de6a4,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1769881358628470711, guid: c3fbc62b1db391d4daa095f2692de6a4,
         type: 3}
       propertyPath: m_Text
@@ -3230,6 +3200,32 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913113606584003469, guid: c3fbc62b1db391d4daa095f2692de6a4,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913113606584003469, guid: c3fbc62b1db391d4daa095f2692de6a4,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913113606584003469, guid: c3fbc62b1db391d4daa095f2692de6a4,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591739702389017034, guid: c3fbc62b1db391d4daa095f2692de6a4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 25f8da3df770b224180f25c7c9221b5f,
+        type: 3}
+    - target: {fileID: 4591739702389017034, guid: c3fbc62b1db391d4daa095f2692de6a4,
+        type: 3}
+      propertyPath: m_Type
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8025160884884469684, guid: c3fbc62b1db391d4daa095f2692de6a4,
         type: 3}
@@ -3336,15 +3332,15 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8293189746489499470, guid: c3fbc62b1db391d4daa095f2692de6a4,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6224358674928413808, guid: c3fbc62b1db391d4daa095f2692de6a4,
         type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293189746489499470, guid: c3fbc62b1db391d4daa095f2692de6a4,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3fbc62b1db391d4daa095f2692de6a4, type: 3}

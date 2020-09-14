@@ -11,7 +11,22 @@ public class KaijiPanel : BasePanel
     public Button[] buttons;
     public FangzhenkaijiPanel fangzhenkaijiPanel;
 
-    private bool IsDown0, IsDown1, IsDown2, IsDown3, IsDown4, IsDown5;
+    private float Score = 12.5f;
+    private string CheckContent = "考核内容";
+
+    private bool IsDown0, IsDown1, IsDown2, IsDown3, IsDown4, IsDown5,IsDown6;
+
+    private string[] CheckMsg = {
+        "设备开机操作考核现在开始",
+        "第一题：请点击第一步要操作的按钮。总分12.5分。",
+        "第二题：请点击第二步要操作的按钮。总分12.5分。",
+        "第三题：请点击第三步要操作的按钮。总分12.5分。",
+        "第四题：请点击第四步要操作的按钮。总分12.5分。",
+        "第五题：请点击第五步要操作的按钮。总分12.5分。",
+        "第六题：请点击第六步要操作的按钮。总分12.5分。",
+        "第七题：请点击第七步要操作的按钮。总分12.5分。",
+        "第八题：请点击第八步要操作的按钮。总分12.5分。",
+    };
 
     public override void InitFind()
     {
@@ -24,50 +39,70 @@ public class KaijiPanel : BasePanel
     {
         base.InitEvent();
 
-        //1GS开机令
+        //复归PLC
         buttons[0].onClick.AddListener(() => {
 
             IsDown0 = true;
             images[0].color = fangzhenkaijiPanel.Green;
-            images[1].color = fangzhenkaijiPanel.Green;
 
-            if(DirectoryPanel.functionType == FunctionType.Check)
+            if (DirectoryPanel.functionType == FunctionType.Check)
             {
-                fangzhenkaijiPanel.checkEndPanel.ScoreAdd(15);
+                fangzhenkaijiPanel.checkEndPanel.ScoreAdd(Score);
+                fangzhenkaijiPanel.tipsGroup.SetCheckText(CheckContent, CheckMsg[2]);
             }
         });
 
-        //空转到空载
+        //1GS开机令
         buttons[1].onClick.AddListener(() => {
 
-            if(IsDown0)
+            if(IsDown0 && !IsDown1)
             {
-                images[2].color = fangzhenkaijiPanel.Green;
-                images[3].color = fangzhenkaijiPanel.Green;
                 IsDown1 = true;
+                images[1].color = fangzhenkaijiPanel.Green;
+                images[2].color = fangzhenkaijiPanel.Green;
 
                 if (DirectoryPanel.functionType == FunctionType.Check)
                 {
-                    fangzhenkaijiPanel.checkEndPanel.ScoreAdd(15);
+                    fangzhenkaijiPanel.checkEndPanel.ScoreAdd(Score);
+                    fangzhenkaijiPanel.tipsGroup.SetCheckText(CheckContent, CheckMsg[3]);
+                }
+            }
+
+        });
+
+        //空转到空载
+        buttons[2].onClick.AddListener(() => {
+
+            if(IsDown1 && !IsDown2)
+            {
+                images[3].color = fangzhenkaijiPanel.Green;
+                images[4].color = fangzhenkaijiPanel.Green;
+                IsDown2 = true;
+
+                if (DirectoryPanel.functionType == FunctionType.Check)
+                {
+                    fangzhenkaijiPanel.checkEndPanel.ScoreAdd(Score);
+                    fangzhenkaijiPanel.tipsGroup.SetCheckText(CheckContent, CheckMsg[4]);
                 }
             }
 
         });
 
         //1GS并网 
-        buttons[2].onClick.AddListener(() => {
+        buttons[3].onClick.AddListener(() => {
 
-            if(IsDown1)
+            if(IsDown2 && !IsDown3)
             {
-                IsDown2 = true;
+                IsDown3 = true;
 
-                if (IsDown3)
+                if (IsDown4)
                 {
                     images[4].color = fangzhenkaijiPanel.Green;
 
                     if (DirectoryPanel.functionType == FunctionType.Check)
                     {
-                        fangzhenkaijiPanel.checkEndPanel.ScoreAdd(15);
+                        fangzhenkaijiPanel.checkEndPanel.ScoreAdd(Score*2);
+                        fangzhenkaijiPanel.tipsGroup.SetCheckText(CheckContent, CheckMsg[5]);
                     }
                 }
             }
@@ -75,19 +110,20 @@ public class KaijiPanel : BasePanel
         });
 
         //1GS切同期
-        buttons[3].onClick.AddListener(() => {
+        buttons[4].onClick.AddListener(() => {
 
-            if(IsDown1)
+            if(IsDown2 && !IsDown4)
             {
-                IsDown3 = true;
+                IsDown4 = true;
 
-                if (IsDown2)
+                if (IsDown3)
                 {
-                    images[4].color = fangzhenkaijiPanel.Green;
+                    images[5].color = fangzhenkaijiPanel.Green;
 
                     if (DirectoryPanel.functionType == FunctionType.Check)
                     {
-                        fangzhenkaijiPanel.checkEndPanel.ScoreAdd(15);
+                        fangzhenkaijiPanel.checkEndPanel.ScoreAdd(Score*2);
+                        fangzhenkaijiPanel.tipsGroup.SetCheckText(CheckContent, CheckMsg[6]);
                     }
                 }
             }
@@ -95,19 +131,20 @@ public class KaijiPanel : BasePanel
         });
 
         //11GS起励
-        buttons[4].onClick.AddListener(() => {
+        buttons[5].onClick.AddListener(() => {
 
-            if(IsDown2 && IsDown3)
+            if(IsDown4 && IsDown3 && !IsDown5)
             {
-                IsDown4 = true;
+                IsDown5 = true;
 
-                if (IsDown5)
+                if (IsDown6)
                 {
-                    images[5].color = fangzhenkaijiPanel.Green;
+                    images[6].color = fangzhenkaijiPanel.Green;
 
                     if (DirectoryPanel.functionType == FunctionType.Check)
                     {
-                        fangzhenkaijiPanel.checkEndPanel.ScoreAdd(15);
+                        fangzhenkaijiPanel.checkEndPanel.ScoreAdd(Score*2);
+                        fangzhenkaijiPanel.tipsGroup.SetCheckText(CheckContent, CheckMsg[7]);
                     }
                 }
             }
@@ -115,35 +152,37 @@ public class KaijiPanel : BasePanel
         });
 
         //11GS并网
-        buttons[5].onClick.AddListener(() => {
-            if (IsDown2 && IsDown3)
+        buttons[6].onClick.AddListener(() => {
+            if (IsDown4 && IsDown3 && !IsDown6)
             {
-                IsDown5 = true;
+                IsDown6 = true;
 
-                if (IsDown4)
+                if (IsDown5)
                 {
-                    images[5].color = fangzhenkaijiPanel.Green;
+                    images[6].color = fangzhenkaijiPanel.Green;
 
                     if (DirectoryPanel.functionType == FunctionType.Check)
                     {
-                        fangzhenkaijiPanel.checkEndPanel.ScoreAdd(15);
+                        fangzhenkaijiPanel.checkEndPanel.ScoreAdd(Score*2);
+                        fangzhenkaijiPanel.tipsGroup.SetCheckText(CheckContent, CheckMsg[8]);
                     }
                 }
             }
 
         });
 
-        buttons[6].onClick.AddListener(() => {
+        buttons[7].onClick.AddListener(() => {
 
-            if(IsDown4 && IsDown5)
+            if(IsDown6)
             {
                 images[6].color = fangzhenkaijiPanel.Green;
                 images[7].color = fangzhenkaijiPanel.Green;
+                images[8].color = fangzhenkaijiPanel.Green;
 
                 if (DirectoryPanel.functionType == FunctionType.Check)
                 {
-                    fangzhenkaijiPanel.checkEndPanel.ScoreAdd(10);
-                    fangzhenkaijiPanel.checkEndPanel.TipsCanvas_Open();
+                    fangzhenkaijiPanel.checkEndPanel.ScoreAdd(Score);
+                    fangzhenkaijiPanel.tipsGroup.SetTextColor(fangzhenkaijiPanel.tipsGroup.TextGroup.Count - 1);
                 }
             }
   
@@ -153,6 +192,11 @@ public class KaijiPanel : BasePanel
     public override void Open()
     {
         base.Open();
+        if (DirectoryPanel.functionType == DirectoryEnum.FunctionType.Check)
+        {
+            fangzhenkaijiPanel.tipsGroup.SetCheckText("考核内容", CheckMsg[0]);
+            fangzhenkaijiPanel.tipsGroup.SetCheckText("考核内容", CheckMsg[1]);
+        }
         Reset();
     }
 
@@ -163,7 +207,7 @@ public class KaijiPanel : BasePanel
 
     private void Reset()
     {
-        IsDown0 = IsDown1 = IsDown2 = IsDown3 = IsDown4 = IsDown5 = false;
+        IsDown0 = IsDown1 = IsDown2 = IsDown3 = IsDown4 = IsDown5 = IsDown6 = false;
 
         for (int i = 0; i < images.Length; i++)
         {

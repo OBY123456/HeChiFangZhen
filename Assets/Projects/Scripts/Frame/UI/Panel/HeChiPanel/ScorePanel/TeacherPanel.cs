@@ -9,7 +9,6 @@ using ScoreEnum;
 
 public class TeacherPanel : BasePanel
 {
-    public GameObject TeacherPrefab;
     private List<GameObject> studentTables = new List<GameObject>();
     public ScrollRect scrollRect;
     public Dropdown ChooseClass, ChooseSubjects;
@@ -21,28 +20,7 @@ public class TeacherPanel : BasePanel
 
     protected override void Start()
     {
-        for (int i = 0; i < 50; i++)
-        {
-            GameObject obj = Instantiate(TeacherPrefab, scrollRect.content);
-            switch (i)
-            {
-                case 0:
-                    obj.GetComponent<StudentTable>().Name.text = "真真真";
-                    break;
-                case 1:
-                    obj.GetComponent<StudentTable>().Class.text = ClassType.水电2班.ToString();
-                    break;
-                case 2:
-                    obj.GetComponent<StudentTable>().Class.text = ClassType.水电3班.ToString();
-                    break;
-                case 3:
-                    obj.GetComponent<StudentTable>().Subjects.text = SubjectsType.项目三.ToString();
-                    break;
-                default:
-                    break;
-            }
-            studentTables.Add(obj);
-        }
+
     }
 
     public override void InitFind()
@@ -129,11 +107,39 @@ public class TeacherPanel : BasePanel
     {
         base.Open();
         Reset();
+        for (int i = 0; i < 50; i++)
+        {
+            GameObject obj = ScorePool.Instance.CreatObject(studentTables);
+            obj.transform.SetParent(scrollRect.content);
+            switch (i)
+            {
+                case 0:
+                    obj.GetComponent<StudentTable>().Name.text = "真真真";
+                    break;
+                case 1:
+                    obj.GetComponent<StudentTable>().Class.text = ClassType.水电2班.ToString();
+                    break;
+                case 2:
+                    obj.GetComponent<StudentTable>().Class.text = ClassType.水电3班.ToString();
+                    break;
+                case 3:
+                    obj.GetComponent<StudentTable>().Subjects.text = SubjectsType.项目三.ToString();
+                    break;
+                default:
+                    break;
+            }
+            obj.transform.SetAsLastSibling();
+        }
+        
     }
 
     public override void Hide()
     {
         base.Hide();
+        while (studentTables.Count > 0)
+        {
+            ScorePool.Instance.DestroyObject(studentTables[0], studentTables);
+        }
     }
 
     private void Seach(ClassType classType,SubjectsType subjectsType,string name = null)

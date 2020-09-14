@@ -189,8 +189,6 @@ MonoBehaviour:
   IsOpen: 1
   scrollRect: {fileID: 5420419473182155812}
   TiltleText: {fileID: 2860294433067689865}
-  TextPrefabs: {fileID: 403816555653505456, guid: 99831b36691f6c342bbad7cc064feb22,
-    type: 3}
   TextGroup: []
 --- !u!225 &5640148299764367860
 CanvasGroup:
@@ -320,36 +318,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1870817093832145978, guid: 6a8795e612938aa4ebc0e073fcf49493,
-        type: 3}
-      propertyPath: m_VerticalScrollbarVisibility
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3326269366834184286, guid: 6a8795e612938aa4ebc0e073fcf49493,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3326269366834184286, guid: 6a8795e612938aa4ebc0e073fcf49493,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3326269366834184286, guid: 6a8795e612938aa4ebc0e073fcf49493,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -17
-      objectReference: {fileID: 0}
-    - target: {fileID: 8872509756618712099, guid: 6a8795e612938aa4ebc0e073fcf49493,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2944688908190392861, guid: 6a8795e612938aa4ebc0e073fcf49493,
-        type: 3}
-      propertyPath: m_Spacing
-      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3826015851939365324, guid: 6a8795e612938aa4ebc0e073fcf49493,
         type: 3}

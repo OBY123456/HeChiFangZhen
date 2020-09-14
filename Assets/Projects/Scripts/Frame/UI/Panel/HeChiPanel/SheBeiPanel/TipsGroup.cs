@@ -10,8 +10,6 @@ public class TipsGroup : BasePanel
 {
     public ScrollRect scrollRect;
     public Text TiltleText;
-
-    public GameObject TextPrefabs;
     public List<GameObject> TextGroup = new List<GameObject>();
 
     public override void InitFind()
@@ -21,7 +19,7 @@ public class TipsGroup : BasePanel
         TiltleText = FindTool.FindChildComponent<Text>(transform, "Text_Regular");
     }
 
-    public void CreatText(string str)
+    private void CreatText(string str)
     {
         GameObject obj = TipsTextPool.Instence.CreatObject(TextGroup);
         obj.GetComponent<Text>().color = Color.white;
@@ -33,16 +31,21 @@ public class TipsGroup : BasePanel
     /// 考核出题用
     /// </summary>
     /// <param name="str"></param>
-    public void CheckCreatText(string str)
+    private void CheckCreatText(string str)
     {
-
+        CreatText(str);
+        if (TextGroup.Count > 2)
+        {
+            TextGroup[TextGroup.Count-2].GetComponent<Text>().color = Color.red;
+        }  
     }
 
-    /// <summary>
-    /// 修改文本内容
-    /// </summary>
-    /// <param name="str"></param>
-    public void DisplayText(string str)
+    public void SetTextColor(int num)
+    {
+        TextGroup[num].GetComponent<Text>().color = Color.red;
+    }
+
+    private void DisplayText(string str)
     {
         if(TextGroup.Count > 0)
         {
@@ -68,12 +71,29 @@ public class TipsGroup : BasePanel
     {
         if(TextGroup.Count > 0)
         {
-            for (int i = 0; i < TextGroup.Count; i++)
+            while(TextGroup.Count > 0)
             {
-                TipsTextPool.Instence.DestroyObject(TextGroup[i], TextGroup);
+                TipsTextPool.Instence.DestroyObject(TextGroup[0], TextGroup);
             }
             TextGroup.Clear();
             TextGroup = null;
         }
+    }
+
+    /// <summary>
+    /// 修改文本内容
+    /// </summary>
+    /// <param name="Tiltle"></param>
+    /// <param name="content"></param>
+    public void SetText(string Tiltle,string content)
+    {
+        TiltleText.text = Tiltle;
+        DisplayText(content);
+    }
+
+    public void SetCheckText(string Tiltle, string content)
+    {
+        TiltleText.text = Tiltle;
+        CheckCreatText(content);
     }
 }
